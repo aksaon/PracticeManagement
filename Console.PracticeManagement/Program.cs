@@ -1,4 +1,4 @@
-﻿using Console.PracticeManagement.Models;
+﻿using PracticeManagement.CLI.Models;
 using System.Runtime.CompilerServices;
 using System.Text;
 
