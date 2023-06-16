@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticeManagement.MAUI.Views.ProjectDetailsView"
+             Title="ProjectDetailsView"
+             NavigatedFrom="OnLeaving"
+             NavigatedTo="OnArriving"
+             >
+    <VerticalStackLayout>
+        <Label 
+            Text="Long Name"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding nameLong, Mode=TwoWay}"></Entry>
+        <Label 
+            Text="Short Name"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding nameShort, Mode=TwoWay}"></Entry>
+        <Label
+            Text="Associated Client ID"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Picker ItemsSource="{Binding ClientList, Mode=TwoWay}"
+                SelectedItem="{Binding selectedClient, Mode=TwoWay}"></Picker>
+        <Button
+            Text="Ok"
+            Clicked="OkClick"
+            />
+        <Button
+            Text="Cancel"
+            Clicked="CancelClick"
+            />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticeManagement.MAUI.Views.TimeDetailsView"
+             Title="TimeDetailsView"
+             NavigatedFrom="OnLeaving"
+             NavigatedTo="OnArriving"
+             >
+    <VerticalStackLayout>
+        <Label 
+            Text="Hours"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding hours, Mode=TwoWay}"></Entry>
+        <Label 
+            Text="Narrative"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding narrative, Mode=TwoWay}"></Entry>
+        <Label
+            Text="Associated Project"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Picker ItemsSource="{Binding ProjectList, Mode=TwoWay}"
+                SelectedItem="{Binding selectedProject, Mode=TwoWay}"></Picker>
+        <Label
+            Text="Associated Employee"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Picker ItemsSource="{Binding EmployeeList, Mode=TwoWay}"
+                SelectedItem="{Binding selectedEmployee, Mode=TwoWay}"></Picker>
+        <Button
+            Text="Ok"
+            Clicked="OkClick"
+            />
+        <Button
+            Text="Cancel"
+            Clicked="CancelClick"
+            />
+    </VerticalStackLayout>
+</ContentPage>

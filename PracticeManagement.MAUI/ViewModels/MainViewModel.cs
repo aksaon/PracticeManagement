@@ -1,5 +1,8 @@
-﻿using System;
+﻿using PracticeManagement.CLI.Models;
+using PracticeManagement.Library.Services;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -8,51 +11,9 @@ using System.Threading.Tasks;
 
 namespace PracticeManagement.MAUI.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel
     {
-        private string test2;
-        public string Test1
-        {
-            get
-            {
-                return "Test1";
-            }
-        }
-
-        public string Test2
-        {
-            get
-            {
-                return test2;
-            }
-            set
-            {
-                test2 = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string Test3
-        {
-            get
-            {
-                return "Test3";
-            }
-        }
-
-        public string Test4
-        {
-            get
-            {
-                return "Test4";
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
+        
     }
 }

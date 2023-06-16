@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticeManagement.MAUI.Views.ClientView"
+             Title="Clients"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <!-- NAVIGATION BAR -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Home"
+            Clicked="ToHome_Clicked"
+            />
+        <ToolbarItem
+            Text="Projects"
+            Clicked="ToProjects_Clicked"
+           />
+        <ToolbarItem
+            Text="Employees"
+            Clicked="ToEmployees_Clicked"
+           />
+        <ToolbarItem
+            Text="Times"
+            Clicked="ToTimes_Clicked"
+           />
+    </ContentPage.ToolbarItems>
+    <!-- CLIENT PAGE -->
+    <ScrollView>
+        <Grid>
+            <!-- SEARCH BAR -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0" Text="{Binding Query}"></Entry>
+                <Button Grid.Column="1" Text="Search" Clicked="Search_Clicked"></Button>
+            </Grid>
+
+            <!-- CLIENT LIST -->
+            <Grid Grid.Row="1">
+                <ListView
+                    ItemsSource="{Binding Clients, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedClient, Mode=TwoWay}">
+                </ListView>
+            </Grid>
+
+            <!-- ADD/EDIT/DELETE -->
+            <Grid Grid.Row="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Add" Grid.Column="0" Clicked="Add_Clicked"></Button>
+                    <Button Text="Edit" Grid.Column="1" Clicked="Edit_Clicked"></Button>
+                    <Button Text="Delete" Grid.Column="2" Clicked="Delete_Clicked"></Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

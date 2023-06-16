@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PracticeManagement.Library.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,32 @@ namespace PracticeManagement.CLI.Models
         public Boolean IsActive { get; set; }
         public string? Name { get; set; }
         public string? Notes { get; set; }
+
+        public List<Project> Projects = new List<Project>();
+
+       // List<Project> getProjects() { return Projects; }
+
+
+        public override string ToString()
+        {
+            string returnValue = "Id: " + Id +
+                   "\nName: " + Name +
+                   "\nOpen Date: " + OpenDate +
+                   "\nNotes: " + Notes +
+                   "\nAssociated Projects: \t";
+
+           // If no projects, don't try to print them
+           if (Projects == null ) { return returnValue; }
+           
+           foreach(var project in Projects) 
+           {
+                returnValue += "Project ID: ";
+                returnValue += project.Id;
+                returnValue += ", Long Name: ";
+                returnValue += project.LongName;
+                returnValue += "\t";
+           }
+           return returnValue;
+        }
     }
 }

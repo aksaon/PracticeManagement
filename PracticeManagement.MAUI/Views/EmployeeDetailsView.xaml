@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticeManagement.MAUI.Views.EmployeeDetailsView"
+             Title="EmployeeDetailsView"
+             NavigatedFrom="OnLeaving"
+             NavigatedTo="OnArriving"
+             >
+    <VerticalStackLayout>
+        <Label 
+            Text="Name"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding name, Mode=TwoWay}"></Entry>
+        <Label 
+            Text="Rate"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding rate, Mode=TwoWay}"></Entry>
+        
+        <Button
+            Text="Ok"
+            Clicked="OkClick"
+            />
+        <Button
+            Text="Cancel"
+            Clicked="CancelClick"
+            />
+    </VerticalStackLayout>
+</ContentPage>

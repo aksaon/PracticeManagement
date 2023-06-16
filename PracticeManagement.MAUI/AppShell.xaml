@@ -4,11 +4,51 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:PracticeManagement.MAUI"
+    xmlns:local2="clr-namespace:PracticeManagement.MAUI.Views"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    
+    <!-- CLIENT VIEWS -->
+    <ShellContent
+        Title="Clients"
+        ContentTemplate="{DataTemplate local2:ClientView}"
+        Route="Clients" />
+    <ShellContent
+        Title="ClientDetails"
+        ContentTemplate="{DataTemplate local2:ClientDetailsView}"
+        Route="ClientDetails" />
+    
+    <!-- PROJECT VIEWS -->
+    <ShellContent
+        Title="Projects"
+        ContentTemplate="{DataTemplate local2:ProjectView}"
+        Route="Projects" />
+    <ShellContent
+        Title="ProjectDetails"
+        ContentTemplate="{DataTemplate local2:ProjectDetailsView}"
+        Route="ProjectDetails" />
 
+    <!-- EMPLOYEE VIEWS -->
+    <ShellContent
+        Title="Employees"
+        ContentTemplate="{DataTemplate local2:EmployeeView}"
+        Route="Employees" />
+    <ShellContent
+        Title="EmployeeDetails"
+        ContentTemplate="{DataTemplate local2:EmployeeDetailsView}"
+        Route="EmployeeDetails" />
+    
+    <!-- TIME VIEWS -->
+    <ShellContent
+        Title="Times"
+        ContentTemplate="{DataTemplate local2:TimeView}"
+        Route="Times" />
+    <ShellContent
+        Title="TimeDetails"
+        ContentTemplate="{DataTemplate local2:TimeDetailsView}"
+        Route="TimeDetails" />
 </Shell>
