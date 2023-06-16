@@ -46,6 +46,10 @@ public partial class ClientView : ContentPage
         (BindingContext as ClientViewModel).Delete();
 
     }
+    private void Close_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as ClientViewModel).Close();
+    }
     // Refresh Page When Navigated to
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {

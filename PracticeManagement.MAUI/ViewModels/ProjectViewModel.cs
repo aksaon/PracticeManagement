@@ -52,6 +52,12 @@ namespace PracticeManagement.MAUI.ViewModels
             var idParam = SelectedProject.Id;
             s.GoToAsync($"//ProjectDetails?projectId={idParam}");
         }
+        public void Close()
+        {
+            if (SelectedProject == null || SelectedProject.IsActive == false) { return; }
+            ProjectService.Current.Close(SelectedProject.Id);
+            NotifyPropertyChanged("Projects");
+        }
         public Project SelectedProject { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

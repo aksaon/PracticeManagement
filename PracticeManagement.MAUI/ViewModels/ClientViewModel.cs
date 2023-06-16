@@ -39,13 +39,19 @@ namespace PracticeManagement.MAUI.ViewModels
             NotifyPropertyChanged("Clients");
             SelectedClient = null;
         }
+        public void Close()
+        {
+            if (SelectedClient == null) { return; }
+            ClientService.Current.Close(SelectedClient.Id);
+            NotifyPropertyChanged("Clients");
+        }
         public void Add(Shell s)
         {
             s.GoToAsync($"//ClientDetails?clientId=0");
         }
         public void Edit(Shell s)
         {
-            if (SelectedClient == null)
+            if (SelectedClient == null || SelectedClient.IsActive == false)
             {
                 return;
             }

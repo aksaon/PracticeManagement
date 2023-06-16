@@ -61,6 +61,15 @@ namespace PracticeManagement.Library.Services
                 projects.Remove(projectToRemove);
             }
         }
+        public void Close(int id)
+        {
+            var projectToClose = Get(id);
+            if (projectToClose != null)
+            {
+                projectToClose.CloseDate = DateTime.Now;
+                projectToClose.IsActive = false;
+            }
+        }
         public void Read()
         {
             projects.ForEach(Console.WriteLine);

@@ -39,9 +39,27 @@ namespace PracticeManagement.Library.Services
                 return 1;
             return clients.Last().Id + 1;
         }
+        // Full List of Clients
         public List<Client> Clients 
         {
             get { return clients; }
+        }
+        // Note: Only Called By ProjectDetailsViewModel to get a list of active Clients
+        //       (Prevents adding a project to a closed client)
+        public List<Client> ClientList
+        {
+            
+            get 
+            {
+                List<Client> tempList = new List<Client>();
+                foreach(var client in clients)
+                {
+                    if(client.IsActive == true)
+                    {
+                        tempList.Add(client);
+                    }
+                }
+                return tempList; }
         }
         public List<Client> Search(string query)
         {
@@ -58,6 +76,20 @@ namespace PracticeManagement.Library.Services
             { 
                 clients.Remove(clientToRemove); 
             }
+        }
+        public void Close(int id) 
+        {
+            var clientToClose = Get(id);
+            if(clientToClose != null)
+            {
+                foreach (var project in clientToClose.Projects)
+                {
+                    // if any project is still active, return
+                    if(project.IsActive == true) { return; }
+                }
+                clientToClose.CloseDate = DateTime.Now;
+                clientToClose.IsActive = false;
+            } 
         }
         public void UpdateProjects()
         {

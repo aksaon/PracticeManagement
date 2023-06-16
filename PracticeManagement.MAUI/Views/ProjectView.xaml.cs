@@ -44,7 +44,10 @@ public partial class ProjectView : ContentPage
     private void Delete_Clicked(object sender, EventArgs e)
     {
         (BindingContext as ProjectViewModel).Delete();
-
+    }
+    private void Close_Clicked(object sender, EventArgs e)
+    {
+       (BindingContext as ProjectViewModel).Close();
     }
     // Refresh Page When Navigated to
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)

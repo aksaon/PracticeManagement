@@ -19,12 +19,19 @@ namespace PracticeManagement.CLI.Models
 
         public override string ToString()
         {
-            return "Id: " + Id +
+            string toReturn = "Id: " + Id +
                    "\nLong Name: " + LongName +
                    "\nShort Name: " + ShortName +
-                   "\nOpen Date: " + OpenDate +
-                   "\nAssociated Client: " + ClientId +
-                   "\n";
+                   "\nOpen Date: " + OpenDate;
+            // If Project is Closed, Display Close Date
+            if(IsActive == false)
+            {
+                toReturn += "\nClose Date: ";
+                toReturn += CloseDate;
+            }
+            toReturn += "\nAssociated Client: " + ClientId + "\n";
+
+            return toReturn;
         }
     }
 }

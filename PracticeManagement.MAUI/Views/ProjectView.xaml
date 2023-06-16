@@ -56,10 +56,12 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button Text="Add" Grid.Column="0" Clicked="Add_Clicked"></Button>
                     <Button Text="Edit" Grid.Column="1" Clicked="Edit_Clicked"></Button>
                     <Button Text="Delete" Grid.Column="2" Clicked="Delete_Clicked"></Button>
+                    <Button Text="Close" Grid.Column="3" Clicked="Close_Clicked"></Button>
                 </Grid>
             </Grid>
         </Grid>

@@ -54,14 +54,13 @@ namespace PracticeManagement.MAUI.ViewModels
 
             if (Id <= 0) // Add new Client
             {
-                ClientService.Current.Add(new Client { Id = ClientService.Current.Get_Next_Id(),Name = name, Notes = notes, OpenDate = DateTime.Now });
+                ClientService.Current.Add(new Client { Id = ClientService.Current.Get_Next_Id(),Name = name, Notes = notes, OpenDate = DateTime.Now, IsActive = true });
             }
             else // Edit Client
             {
                 var refToUpdate = ClientService.Current.Get(Id) as Client;
                 refToUpdate.Name = name;
                 refToUpdate.Notes = notes;
-                
             }
             Shell.Current.GoToAsync("//Clients");
         }

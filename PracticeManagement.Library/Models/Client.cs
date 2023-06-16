@@ -18,16 +18,22 @@ namespace PracticeManagement.CLI.Models
 
         public List<Project> Projects = new List<Project>();
 
-       // List<Project> getProjects() { return Projects; }
+       
 
 
         public override string ToString()
         {
             string returnValue = "Id: " + Id +
-                   "\nName: " + Name +
-                   "\nOpen Date: " + OpenDate +
-                   "\nNotes: " + Notes +
-                   "\nAssociated Projects: \t";
+                                 "\nName: " + Name +
+                                 "\nOpen Date: " + OpenDate;
+            if(IsActive == false)
+            {
+                returnValue += "\nClose Date: ";
+                returnValue += CloseDate;
+            }
+                
+            returnValue += "\nNotes: " + Notes +
+                           "\nAssociated Projects: \t";
 
            // If no projects, don't try to print them
            if (Projects == null ) { return returnValue; }

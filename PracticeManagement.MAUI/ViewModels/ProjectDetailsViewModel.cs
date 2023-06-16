@@ -19,7 +19,7 @@ namespace PracticeManagement.MAUI.ViewModels
         {
             get
             {
-                return ClientService.Current.Clients;
+                return ClientService.Current.ClientList;
             }
         }
         public Client selectedClient { get; set; }
@@ -60,7 +60,7 @@ namespace PracticeManagement.MAUI.ViewModels
             if (Id <= 0) // Add new Project
             {
                 ProjectService.Current.Add(new Project { Id = ProjectService.Current.Get_Next_Id(), LongName = nameLong, 
-                                                         ShortName = nameShort, ClientId = selectedClient.Id, OpenDate = DateTime.Now });
+                                                         ShortName = nameShort, ClientId = selectedClient.Id, OpenDate = DateTime.Now, IsActive = true });
             }
             else // Edit Project
             {
