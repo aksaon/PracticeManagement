@@ -19,7 +19,7 @@ public partial class EmployeeDetailsView : ContentPage
 
     private void CancelClick(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//Employess");
+        Shell.Current.GoToAsync("//Employees");
     }
 
 

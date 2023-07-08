@@ -65,7 +65,7 @@ namespace PracticeManagement.MAUI.ViewModels
             NotifyPropertyChanged(nameof(narrative));
             NotifyPropertyChanged(nameof(hours));
         }
-        public void AddProject()
+        public void AddTime()
         {
             if (selectedProject == null || selectedEmployee == null) { return; }
             if (Id <= 0) // Add new Project

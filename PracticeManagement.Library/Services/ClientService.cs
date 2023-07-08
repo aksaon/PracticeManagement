@@ -61,6 +61,11 @@ namespace PracticeManagement.Library.Services
                 }
                 return tempList; }
         }
+        // List of Projects
+        public List<Project> Get_Projects(int id)
+        {
+            return Clients.First(c => c.Id == id).Projects;
+        }
         public List<Client> Search(string query)
         {
             return Clients.Where(c => c.Name.ToUpper().Contains(query.ToUpper())).ToList();

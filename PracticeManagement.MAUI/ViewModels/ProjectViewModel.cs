@@ -8,67 +8,75 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PracticeManagement.MAUI.ViewModels
 {
     public class ProjectViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Project> Projects
+        public Project Model { get; set; }
+      
+        public string Display
         {
             get
             {
-                if (string.IsNullOrEmpty(Query))
-                {
-                    return new ObservableCollection<Project>(ProjectService.Current.Projects);
-                }
-                return new ObservableCollection<Project>(ProjectService.Current.Search(Query));
+                return Model.ToString() ?? string.Empty;
             }
         }
-        public string Query { get; set; }
-        public void Search()
+        public ICommand DeleteCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; } 
+        public ICommand ShowBillCommand { get; set; }
+        private void SetCommands()
         {
-            NotifyPropertyChanged("Projects");
+            DeleteCommand = new Command(
+                (p) => ExecuteDelete((p as ProjectViewModel).Model.Id));
+            EditCommand = new Command(
+                (p) => ExecuteEdit((p as ProjectViewModel).Model.Id));
+            CloseCommand = new Command(
+                (p) => ExecuteClose((p as ProjectViewModel).Model.Id));
+            ShowBillCommand = new Command(
+                (p) => ExecuteShow((p as ProjectViewModel).Model.Id));
         }
-        public void Delete()
+        public void ExecuteDelete(int id)
         {
-            if (SelectedProject == null)
-            {
-                return;
-            }
-            ProjectService.Current.Delete(SelectedProject.Id);
-            NotifyPropertyChanged("Projects");
-            SelectedProject = null;
+            ProjectService.Current.Delete(id);
         }
-        public void Add(Shell s)
+        public void ExecuteEdit(int id)
         {
-            s.GoToAsync($"//ProjectDetails?projectId=0");
+            Shell.Current.GoToAsync($"//ProjectDetails?projectId={id}");
         }
-        public void Edit(Shell s)
+        public void ExecuteClose(int id)
         {
-            if (SelectedProject == null)
-            {
-                return;
-            }
-            var idParam = SelectedProject.Id;
-            s.GoToAsync($"//ProjectDetails?projectId={idParam}");
+            ProjectService.Current.Close(id);
         }
-        public void Close()
+        public void ExecuteShow(int id)
         {
-            if (SelectedProject == null || SelectedProject.IsActive == false) { return; }
-            ProjectService.Current.Close(SelectedProject.Id);
-            NotifyPropertyChanged("Projects");
+            Shell.Current.GoToAsync($"//ShowBill?projectId={id}");
         }
-        public Project SelectedProject { get; set; }
+        public ProjectViewModel(Project project)
+        {
+            Model = project;
+            SetCommands();
+        }
+        public ProjectViewModel(int id)
+        {
+            if (id > 0)
+                Model = ProjectService.Current.Get(id);
+            else
+                Model = new Project();
+            SetCommands();
+        }
+        public ProjectViewModel()
+        {
+            Model = new Project();
+            SetCommands();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public void RefreshView()
-        {
-            NotifyPropertyChanged(nameof(Projects));
         }
     }
 }

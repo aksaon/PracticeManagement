@@ -44,10 +44,10 @@ namespace PracticeManagement.Library.Services
         {
             get { return projects; }
         }
-        public List<Project> Search(string query)
+        public IEnumerable<Project> Search(string query)
         {
             return Projects.Where(p => p.ShortName.ToUpper().Contains(query.ToUpper()) ||
-                                  p.LongName.ToUpper().Contains(query.ToUpper())).ToList();
+                                  p.LongName.ToUpper().Contains(query.ToUpper()));
         }
         public void Add(Project project)
         {

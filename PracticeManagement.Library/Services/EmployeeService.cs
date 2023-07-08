@@ -40,6 +40,10 @@ namespace PracticeManagement.Library.Services
                 return 1;
             return employees.Last().Id + 1;
         }
+        public double Get_Rate(int id)
+        {
+            return employees.First(e => e.Id == id).Rate;
+        }
         public List<Employee> Employees
         {
             get { return employees; }

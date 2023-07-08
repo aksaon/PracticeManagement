@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticeManagement.MAUI.Views.ShowBill"
+             NavigatedFrom="OnLeaving"
+             NavigatedTo="OnArriving"
+             Title="ShowBill">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Display}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center">
+        </Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Text="Return" Grid.Column="0" Clicked="Return_Clicked"></Button>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

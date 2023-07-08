@@ -7,7 +7,7 @@ public partial class TimeView : ContentPage
     public TimeView()
     {
         InitializeComponent();
-        BindingContext = new TimeViewModel();
+        BindingContext = new TimeViewViewModel();
     }
     // Navigation Bar
     private void ToHome_Clicked(object sender, EventArgs e)
@@ -29,26 +29,35 @@ public partial class TimeView : ContentPage
     // Search Bar
     private void Search_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as TimeViewModel).Search();
+        (BindingContext as TimeViewViewModel).Search();
     }
 
     // Add/Edit/Delete Buttons
     private void Add_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as TimeViewModel).Add(Shell.Current);
+        (BindingContext as TimeViewViewModel).Add(Shell.Current);
     }
     private void Edit_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as TimeViewModel).Edit(Shell.Current);
+        (BindingContext as TimeViewViewModel).RefreshView();
     }
     private void Delete_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as TimeViewModel).Delete();
+        (BindingContext as TimeViewViewModel).RefreshView();
 
+    }
+    private void AddBill_Clicked(object sender, EventArgs e)
+    {
+      //  (BindingContext as TimeViewViewModel).Delete();
+
+    }
+    private void Return_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//MainPage");
     }
     // Refresh Page When Navigated to
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as TimeViewModel).RefreshView();
+        (BindingContext as TimeViewViewModel).RefreshView();
     }
 }

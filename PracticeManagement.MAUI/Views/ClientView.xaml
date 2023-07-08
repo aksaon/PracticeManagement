@@ -46,6 +46,39 @@
                 <ListView
                     ItemsSource="{Binding Clients, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedClient, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="12*"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Display}"></Label>
+
+                                    <Button Text="Edit" Grid.Column="1" 
+                                            Command="{Binding Path = EditCommand}"
+                                            CommandParameter="{Binding}" 
+                                            Clicked="Edit_Clicked"></Button>
+                                    <Button Text="Delete" Grid.Column="2"
+                                            Command="{Binding Path = DeleteCommand}"
+                                            CommandParameter="{Binding}"
+                                            Clicked="Delete_Clicked"></Button>
+                                    <Button Text="Close" Grid.Column="3"
+                                            Command="{Binding Path = CloseCommand}"
+                                            CommandParameter="{Binding}"
+                                            Clicked="Close_Clicked"></Button>
+                                    <Button Text="Show Bills" Grid.Column="4" 
+                                            Command="{Binding Path = ShowBillCommand}"
+                                            CommandParameter="{Binding}"
+                                            Clicked="ShowBill_Clicked"></Button>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </Grid>
 
@@ -55,13 +88,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button Text="Add" Grid.Column="0" Clicked="Add_Clicked"></Button>
-                    <Button Text="Edit" Grid.Column="1" Clicked="Edit_Clicked"></Button>
-                    <Button Text="Delete" Grid.Column="2" Clicked="Delete_Clicked"></Button>
-                    <Button Text="Close" Grid.Column="3" Clicked="Close_Clicked"></Button>
+                    <Button Text="Return" Grid.Column="1" Clicked="Return_Clicked"></Button>
                 </Grid>
             </Grid>
         </Grid>

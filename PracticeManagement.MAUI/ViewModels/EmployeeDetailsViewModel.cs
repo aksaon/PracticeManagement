@@ -48,11 +48,11 @@ namespace PracticeManagement.MAUI.ViewModels
         public void AddProject()
         {
             
-            if (Id <= 0) // Add new Project
+            if (Id <= 0) // Add new Employee
             {
                 EmployeeService.Current.Add(new Employee { Id = EmployeeService.Current.Get_Next_Id(),Name = name, Rate = rate });
             }
-            else // Edit Project
+            else // Edit Employee
             {
                 var refToUpdate = EmployeeService.Current.Get(Id) as Employee;
                 refToUpdate.Name = name;

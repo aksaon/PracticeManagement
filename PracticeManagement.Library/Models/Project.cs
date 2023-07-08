@@ -13,8 +13,8 @@ namespace PracticeManagement.CLI.Models
         public DateTime OpenDate { get; set; }
         public DateTime CloseDate { get; set; }
         public Boolean IsActive { get; set; }
-        public string? ShortName { get; set; }
-        public string? LongName { get; set; }
+        public string ShortName { get; set; }
+        public string LongName { get; set; }
         public int ClientId { get; set; }
 
         public override string ToString()

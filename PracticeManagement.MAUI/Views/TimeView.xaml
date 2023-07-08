@@ -43,9 +43,39 @@
 
             <!-- TIMES LIST -->
             <Grid Grid.Row="1">
+
                 <ListView
                     ItemsSource="{Binding Times, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedTime, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="12*"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Display}"></Label>
+
+                                    <Button Text="Edit" Grid.Column="1" 
+                                            Command="{Binding Path = EditCommand}"
+                                            CommandParameter="{Binding}" 
+                                            Clicked="Edit_Clicked"></Button>
+                                    <Button Text="Delete" Grid.Column="2"
+                                            Command="{Binding Path = DeleteCommand}"
+                                            CommandParameter="{Binding}"
+                                            Clicked="Delete_Clicked"></Button>
+                                    <Button Grid.Column="3" Text="Add Bill"
+                                            Command="{Binding Path = AddBillCommand}"
+                                            CommandParameter="{Binding}"
+                                            Clicked="AddBill_Clicked"></Button>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </Grid>
 
@@ -55,11 +85,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button Text="Add" Grid.Column="0" Clicked="Add_Clicked"></Button>
-                    <Button Text="Edit" Grid.Column="1" Clicked="Edit_Clicked"></Button>
-                    <Button Text="Delete" Grid.Column="2" Clicked="Delete_Clicked"></Button>
+                    <Button Text="Return" Grid.Column="1" Clicked="Return_Clicked"></Button>
                 </Grid>
             </Grid>
         </Grid>

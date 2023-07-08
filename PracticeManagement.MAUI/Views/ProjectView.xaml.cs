@@ -7,7 +7,7 @@ public partial class ProjectView : ContentPage
     public ProjectView()
     {
         InitializeComponent();
-        BindingContext = new ProjectViewModel();
+        BindingContext = new ProjectViewViewModel();
     }
     // Navigation Bar
     private void ToHome_Clicked(object sender, EventArgs e)
@@ -29,29 +29,37 @@ public partial class ProjectView : ContentPage
     // Search Bar
     private void Search_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ProjectViewModel).Search();
+        (BindingContext as ProjectViewViewModel).Search();
     }
 
     // Add/Edit/Delete Buttons
     private void Add_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ProjectViewModel).Add(Shell.Current);
+        (BindingContext as ProjectViewViewModel).Add(Shell.Current);
     }
     private void Edit_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ProjectViewModel).Edit(Shell.Current);
+        (BindingContext as ProjectViewViewModel).RefreshView();
     }
     private void Delete_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ProjectViewModel).Delete();
+        (BindingContext as ProjectViewViewModel).RefreshView();
     }
     private void Close_Clicked(object sender, EventArgs e)
     {
-       (BindingContext as ProjectViewModel).Close();
+       (BindingContext as ProjectViewViewModel).RefreshView();
+    }
+    private void ShowBill_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as ProjectViewViewModel).RefreshView();
+    }
+    private void Return_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//MainPage");
     }
     // Refresh Page When Navigated to
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as ProjectViewModel).RefreshView();
+        (BindingContext as ProjectViewViewModel).RefreshView();
     }
 }

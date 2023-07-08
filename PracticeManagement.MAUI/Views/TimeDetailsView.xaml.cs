@@ -14,7 +14,7 @@ public partial class TimeDetailsView : ContentPage
 
     private void OkClick(object sender, EventArgs e)
     {
-        (BindingContext as TimeDetailsViewModel).AddProject();
+        (BindingContext as TimeDetailsViewModel).AddTime();
     }
 
     private void CancelClick(object sender, EventArgs e)

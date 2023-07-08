@@ -8,71 +8,75 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PracticeManagement.MAUI.ViewModels
 {
     public class ClientViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Client> Clients
+        public Client Model { get; set; }
+
+        public string Display
         {
             get
             {
-                if (string.IsNullOrEmpty(Query))
-                {
-                    return new ObservableCollection<Client>(ClientService.Current.Clients);
-                }
-                return new ObservableCollection<Client>(ClientService.Current.Search(Query));
+                return Model.ToString() ?? string.Empty;
             }
         }
-        public string Query { get; set; }
-        public void Search()
+        public ICommand DeleteCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
+        public ICommand ShowBillCommand { get; set; }
+        private void SetCommands()
         {
-            NotifyPropertyChanged("Clients");
+            DeleteCommand = new Command(
+                (c) => ExecuteDelete((c as ClientViewModel).Model.Id));
+            EditCommand = new Command(
+                (c) => ExecuteEdit((c as ClientViewModel).Model.Id));
+            CloseCommand = new Command(
+                (c) => ExecuteClose((c as ClientViewModel).Model.Id));
+            ShowBillCommand = new Command(
+                (c) => ExecuteShow((c as ClientViewModel).Model.Id));
         }
-        public void Delete()
+        public void ExecuteDelete(int id)
         {
-            if (SelectedClient == null)
-            {
-                return;
-            }
-            ClientService.Current.Delete(SelectedClient.Id);
-            NotifyPropertyChanged("Clients");
-            SelectedClient = null;
+            ClientService.Current.Delete(id);
         }
-        public void Close()
+        public void ExecuteEdit(int id)
         {
-            if (SelectedClient == null) { return; }
-            ClientService.Current.Close(SelectedClient.Id);
-            NotifyPropertyChanged("Clients");
+            Shell.Current.GoToAsync($"//ClientDetails?clientId={id}");
         }
-        public void Add(Shell s)
+        public void ExecuteClose(int id)
         {
-            s.GoToAsync($"//ClientDetails?clientId=0");
+            ClientService.Current.Close(id);
         }
-        public void Edit(Shell s)
+        public void ExecuteShow(int id)
         {
-            if (SelectedClient == null || SelectedClient.IsActive == false)
-            {
-                return;
-            }
-            var idParam = SelectedClient.Id;
-            s.GoToAsync($"//ClientDetails?clientId={idParam}");
+            Shell.Current.GoToAsync($"//ShowBill?clientId={id}");
         }
-        public Client SelectedClient { get; set; }
+        public ClientViewModel(Client client)
+        {
+            Model = client;
+            SetCommands();
+        }
+        public ClientViewModel(int id)
+        {
+            if (id > 0)
+                Model = ClientService.Current.Get(id);
+            else
+                Model = new Client();
+            SetCommands();
+        }
+        public ClientViewModel()
+        {
+            Model = new Client();
+            SetCommands();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public void UpdateProjects()
-        {
-            ClientService.Current.UpdateProjects();
-        }
-        public void RefreshView()
-        {
-            NotifyPropertyChanged(nameof(Clients));
         }
     }
 }

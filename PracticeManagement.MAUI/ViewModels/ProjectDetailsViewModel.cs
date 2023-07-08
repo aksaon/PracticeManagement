@@ -56,7 +56,7 @@ namespace PracticeManagement.MAUI.ViewModels
         }
         public void AddProject()
         {
-            if (selectedClient == null) { return; }
+            if (selectedClient == null || nameLong == null || nameShort == null) { return; }
             if (Id <= 0) // Add new Project
             {
                 ProjectService.Current.Add(new Project { Id = ProjectService.Current.Get_Next_Id(), LongName = nameLong, 

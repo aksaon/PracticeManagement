@@ -9,61 +9,69 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PracticeManagement.MAUI.ViewModels
 {
     public class TimeViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Time> Times
+        public Time Model { get; set; }
+
+        public string Display
         {
             get
             {
-                if (string.IsNullOrEmpty(Query))
-                {
-                    return new ObservableCollection<Time>(TimeService.Current.Times);
-                }
-                return new ObservableCollection<Time>(TimeService.Current.Search(Query));
+                return Model.ToString() ?? string.Empty;
             }
         }
-        public string Query { get; set; }
-        public void Search()
+        public ICommand DeleteCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+        public ICommand AddBillCommand { get; set; }
+        private void SetCommands()
         {
-            NotifyPropertyChanged("Times");
+            DeleteCommand = new Command(
+                (p) => ExecuteDelete((p as TimeViewModel).Model.Id));
+            EditCommand = new Command(
+                (p) => ExecuteEdit((p as TimeViewModel).Model.Id));
+            AddBillCommand = new Command(
+                (p) => ExecuteAddBill((p as TimeViewModel).Model.Id));
         }
-        public void Delete()
+        public void ExecuteDelete(int id)
         {
-            if (SelectedTime == null)
-            {
-                return;
-            }
-            TimeService.Current.Delete(SelectedTime.Id);
-            NotifyPropertyChanged("Times");
-            SelectedTime = null;
+            TimeService.Current.Delete(id);
         }
-        public void Add(Shell s)
+        public void ExecuteEdit(int id)
         {
-            s.GoToAsync($"//TimeDetails?timeId=0"); // check id
+            Shell.Current.GoToAsync($"//TimeDetails?timeId={id}");
         }
-        public void Edit(Shell s)
+        public void ExecuteAddBill(int id)
         {
-            if (SelectedTime == null)
-            {
-                return;
-            }
-            var idParam = SelectedTime.Id;
-            s.GoToAsync($"//TimeDetails?timeId={idParam}"); // check id
+            
+            Shell.Current.GoToAsync($"//BillDetails?timeId={id}");
         }
-        public Time SelectedTime { get; set; }
+        public TimeViewModel(Time time)
+        {
+            Model = time;
+            SetCommands();
+        }
+        public TimeViewModel(int id)
+        {
+            if (id > 0)
+                Model = TimeService.Current.Get(id);
+            else
+                Model = new Time();
+            SetCommands();
+        }
+        public TimeViewModel()
+        {
+            Model = new Time();
+            SetCommands();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void RefreshView()
-        {
-            NotifyPropertyChanged(nameof(Times));
-        }
-    }
+    } 
 }

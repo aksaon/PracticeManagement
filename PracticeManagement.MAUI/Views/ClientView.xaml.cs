@@ -7,7 +7,7 @@ public partial class ClientView : ContentPage
 	public ClientView()
 	{
 		InitializeComponent();
-        BindingContext = new ClientViewModel();
+        BindingContext = new ClientViewViewModel();
     }
     // Navigation Bar
     private void ToHome_Clicked(object sender, EventArgs e)
@@ -29,31 +29,39 @@ public partial class ClientView : ContentPage
     // Search Bar
     private void Search_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewModel).Search();
+        (BindingContext as ClientViewViewModel).Search();
     }
    
     // Add/Edit/Delete Buttons
     private void Add_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewModel).Add(Shell.Current);
+        (BindingContext as ClientViewViewModel).Add(Shell.Current);
     }
     private void Edit_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewModel).Edit(Shell.Current);
+        (BindingContext as ClientViewViewModel).RefreshView();
     }
     private void Delete_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewModel).Delete();
+        (BindingContext as ClientViewViewModel).RefreshView();
 
     }
     private void Close_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewModel).Close();
+        (BindingContext as ClientViewViewModel).RefreshView();
+    }
+    private void ShowBill_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as ClientViewViewModel).RefreshView();
+    }
+    private void Return_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//MainPage");
     }
     // Refresh Page When Navigated to
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as ClientViewModel).UpdateProjects();
-        (BindingContext as ClientViewModel).RefreshView();
+        (BindingContext as ClientViewViewModel).UpdateProjects();
+        (BindingContext as ClientViewViewModel).RefreshView();
     }
 }

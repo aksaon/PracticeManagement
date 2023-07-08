@@ -41,6 +41,18 @@ namespace PracticeManagement.Library.Services
                 return 1;
             return times.Last().Id + 1;
         }
+        public int Get_Proj_Id(int id)
+        {
+            return times.First(times => times.Id == id).ProjectId;
+        }
+        public double Get_Hours(int id)
+        {
+            return times.First(times=>times.Id == id).Hours;
+        }
+        public int Get_Employee(int id)
+        {
+            return times.First(times => times.Id == id).EmployeeId;
+        }
         public List<Time> Times
         {
             get { return times; }
