@@ -1,4 +1,5 @@
 ﻿using PracticeManagement.CLI.Models;
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace PracticeManagement.MAUI.ViewModels
             var idParam = SelectedClient.Id;
             s.GoToAsync($"//ClientDetails?clientId={idParam}");
         }
-        public Client SelectedClient { get; set; }
+        public ClientDTO SelectedClient { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

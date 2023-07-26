@@ -1,4 +1,5 @@
 ﻿using PracticeManagement.CLI.Models;
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,14 @@ namespace PracticeManagement.MAUI.ViewModels
         public string nameLong { get; set; }
         public string nameShort { get; set; }
         public int Id { get; set; }
-        public List<Client> ClientList
+        public List<ClientDTO> ClientList
         {
             get
             {
                 return ClientService.Current.ClientList;
             }
         }
-        public Client selectedClient { get; set; }
+        public ClientDTO selectedClient { get; set; }
 
         public ProjectDetailsViewModel(int id = 0)
         {

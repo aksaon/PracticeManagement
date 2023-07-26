@@ -1,4 +1,5 @@
 ﻿using PracticeManagement.CLI.Models;
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace PracticeManagement.MAUI.ViewModels
 {
     public class ClientViewModel : INotifyPropertyChanged
     {
-        public Client Model { get; set; }
+        public ClientDTO Model { get; set; }
 
         public string Display
         {
@@ -54,7 +55,7 @@ namespace PracticeManagement.MAUI.ViewModels
         {
             Shell.Current.GoToAsync($"//ShowBill?clientId={id}");
         }
-        public ClientViewModel(Client client)
+        public ClientViewModel(ClientDTO client)
         {
             Model = client;
             SetCommands();
@@ -64,12 +65,12 @@ namespace PracticeManagement.MAUI.ViewModels
             if (id > 0)
                 Model = ClientService.Current.Get(id);
             else
-                Model = new Client();
+                Model = new ClientDTO();
             SetCommands();
         }
         public ClientViewModel()
         {
-            Model = new Client();
+            Model = new ClientDTO();
             SetCommands();
         }
 

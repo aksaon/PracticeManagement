@@ -1,14 +1,26 @@
-﻿using PracticeManagement.CLI.Models;
+﻿using Newtonsoft.Json;
+using PracticeManagement.Library.Utilities;
+using PracticeManagement.CLI.Models;
+using PracticeManagement.Library.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PracticeManagement.Library.Services
 {
     public class ClientService
     {
+        private List<ClientDTO> clients;
+        public List<ClientDTO> Clients
+        {
+            get
+            {
+                return clients ?? new List<ClientDTO>();
+            }
+        }
         private static ClientService? instance;
         private static object instanceLock = new object();
         public static ClientService Current 
@@ -24,14 +36,57 @@ namespace PracticeManagement.Library.Services
                 return instance;
             }
         }
-        private List<Client> clients;
         private ClientService() 
         {
-            clients = new List<Client>();
+            var response = new WebRequestHandler().Get("/Client").Result;
+            clients = JsonConvert.DeserializeObject<List<ClientDTO>>(response) ?? new List<ClientDTO>();
         }
-        public Client? Get(int id) 
+        public void Delete(int id)
         {
-            return clients.FirstOrDefault(c => c.Id == id);
+            // Delete from filebase
+            var response = new WebRequestHandler().Delete($"/Client/Delete/{id}").Result;
+
+            // Remove from list of clients
+            var clientToDelete = Clients.FirstOrDefault(c => c.Id == id);
+            if (clientToDelete != null)
+            {
+                Clients.Remove(clientToDelete);
+            }
+        }
+        public void AddOrUpdate(ClientDTO client)
+        {
+            var response = new WebRequestHandler().Post("/Client", client).Result;
+
+            var myUpdatedClient = JsonConvert.DeserializeObject<ClientDTO>(response);
+            if(myUpdatedClient != null) 
+            {
+                var existingClient = clients.FirstOrDefault(c => c.Id == myUpdatedClient.Id);
+                if (existingClient == null)
+                {
+                    clients.Add(myUpdatedClient);
+                }
+                else
+                {
+                    var index = clients.IndexOf(existingClient);
+                    clients.RemoveAt(index);
+                    clients.Insert(index, myUpdatedClient);
+                }
+            }
+        }
+        public ClientDTO? Get(int id) 
+        {
+            var response = new WebRequestHandler().Get($"/{id}").Result;
+            return JsonConvert.DeserializeObject<ClientDTO>(response);
+            //return Clients.FirstOrDefault(c => c.Id == id);
+        }
+        public IEnumerable<ClientDTO>? Search(string query)
+        {
+            var response = new WebRequestHandler().Get($"/Client/Search?query={query}").Result;
+            if (response != null)
+            {
+                return JsonConvert.DeserializeObject<IEnumerable<ClientDTO>>(response);
+            }
+            return Clients;          
         }
         public int Get_Next_Id()
         {
@@ -39,20 +94,15 @@ namespace PracticeManagement.Library.Services
                 return 1;
             return clients.Last().Id + 1;
         }
-        // Full List of Clients
-        public List<Client> Clients 
-        {
-            get { return clients; }
-        }
         // Note: Only Called By ProjectDetailsViewModel to get a list of active Clients
         //       (Prevents adding a project to a closed client)
-        public List<Client> ClientList
+        public List<ClientDTO> ClientList
         {
             
             get 
             {
-                List<Client> tempList = new List<Client>();
-                foreach(var client in clients)
+                List<ClientDTO> tempList = new List<ClientDTO>();
+                foreach(var client in Clients)
                 {
                     if(client.IsActive == true)
                     {
@@ -66,21 +116,9 @@ namespace PracticeManagement.Library.Services
         {
             return Clients.First(c => c.Id == id).Projects;
         }
-        public List<Client> Search(string query)
-        {
-            return Clients.Where(c => c.Name.ToUpper().Contains(query.ToUpper())).ToList();
-        }
-        public void Add(Client client) 
+        public void Add(ClientDTO client) 
         {
             clients.Add(client);
-        }
-        public void Delete(int id) 
-        {
-            var clientToRemove = Get(id);
-            if(clientToRemove != null) 
-            { 
-                clients.Remove(clientToRemove); 
-            }
         }
         public void Close(int id) 
         {
@@ -94,6 +132,12 @@ namespace PracticeManagement.Library.Services
                 }
                 clientToClose.CloseDate = DateTime.Now;
                 clientToClose.IsActive = false;
+
+                AddOrUpdate(clientToClose);     // Update Client Side List
+
+                _ = new WebRequestHandler().Post("/Client", clientToClose).Result;  // Update Server Side List
+            
+              // var myUpdatedClient = JsonConvert.DeserializeObject<ClientDTO>(response);
             } 
         }
         public void UpdateProjects()
