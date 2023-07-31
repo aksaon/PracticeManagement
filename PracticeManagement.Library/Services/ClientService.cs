@@ -77,7 +77,6 @@ namespace PracticeManagement.Library.Services
         {
             var response = new WebRequestHandler().Get($"/{id}").Result;
             return JsonConvert.DeserializeObject<ClientDTO>(response);
-            //return Clients.FirstOrDefault(c => c.Id == id);
         }
         public IEnumerable<ClientDTO>? Search(string query)
         {
@@ -136,8 +135,6 @@ namespace PracticeManagement.Library.Services
                 AddOrUpdate(clientToClose);     // Update Client Side List
 
                 _ = new WebRequestHandler().Post("/Client", clientToClose).Result;  // Update Server Side List
-            
-              // var myUpdatedClient = JsonConvert.DeserializeObject<ClientDTO>(response);
             } 
         }
         public void UpdateProjects()

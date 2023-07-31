@@ -12,7 +12,7 @@ namespace PracticeManagement.MAUI.ViewModels
     public class BillDetailsViewModel
     {
         public int projectId { get; set; }
-        public DateOnly dueDate { get; set; } // null
+        public DateOnly dueDate { get; set; }
         public double totalAmount { get; set; }
         public BillDetailsViewModel(int timeId) 
         {

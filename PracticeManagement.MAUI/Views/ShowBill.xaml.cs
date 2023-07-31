@@ -22,16 +22,16 @@ public partial class ShowBill : ContentPage
     private void OnArriving(object sender, NavigatedToEventArgs e)
     {
         if (ClientId > 0) // If arriving from client view
-        {
+        {                 // Bind with a List of Projects
             BindingContext = new ShowBillViewModel(ClientService.Current.Get_Projects(ClientId));
         }
         else                    // If arriving from project view
-        {
+        {                       // Bind with one project
             BindingContext = new ShowBillViewModel(ProjectId);
         }
     }
     private void Return_Clicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//MainPage"); // replace with return to original page
+        Shell.Current.GoToAsync("//MainPage"); // replace with return to calling page
     }
 }

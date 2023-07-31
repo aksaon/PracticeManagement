@@ -28,21 +28,5 @@ namespace PracticeManagement.MAUI
         {
             Shell.Current.GoToAsync("//Times");
         }
-        /*
-        private void Delete_Clicked(object sender, EventArgs e)
-        {
-            (BindingContext as MainViewModel).Delete();
-            
-        }
-
-        private void Search_Clicked(object sender, EventArgs e)
-        {
-            (BindingContext as MainViewModel).Search();
-        }
-
-        private void Add_Clicked(object sender, EventArgs e)
-        {
-            (BindingContext as MainViewModel).Add();
-        }*/
     }
 }

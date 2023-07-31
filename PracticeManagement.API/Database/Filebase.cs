@@ -3,15 +3,13 @@ using PracticeManagement.API.EC;
 using PracticeManagement.Library.Models;
 using PracticeManagement.CLI.Models;
 using System.Net;
-using PracticeManagement.API.Database;
 
-namespace PP.API.Database
+namespace PracticeManagement.API.Database
 {
     public class Filebase
     {
         private string _root;
         private string _clientRoot;
-        private string _projectRoot;
         private static Filebase? _instance;
         public static Filebase Current
         {
@@ -28,10 +26,11 @@ namespace PP.API.Database
 
         private Filebase()
         {
+            // change with proper directory or create this directory
+            // ex: C:\temp\Clients
             _root = @"C:\temp";
             _clientRoot = $"{_root}\\Clients";
-            _projectRoot = $"{_root}\\Projects";
-            //TODO: add support for employees, times, bills
+            //TODO: add support for projects, employees, times, bills
         }
         private int LastClientId => Clients.Any() ? Clients.Select(c => c.Id).Max() : 0;
         public Client AddOrUpdate(Client c)
